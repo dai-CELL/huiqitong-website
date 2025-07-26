@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鄂州市慧企通 - 专注企业服务</title>
+    <title>鄂州市慧企通 - 专注财税服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -509,7 +509,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-calculator"></i></div>
-                <div class="logo-text">慧企通<span class="logo-sub">鄂州市企业服务平台</span></div>
+                <div class="logo-text">慧企通<span class="logo-sub">鄂州市财税服务平台</span></div>
             </div>
             <ul class="nav-links">
                 <li><a href="#services">服务项目</a></li>
@@ -552,9 +552,10 @@
                     <div class="card-body">
                         <p>专业财务团队为您提供全方位财税服务</p>
                         <ul class="service-list">
-                            <li>财税服务</li>
+                            <li>记账报税</li>
                             <li>税务清算</li>
                             <li>税务咨询</li>
+                            <li>税务筹划</li>
                         </ul>
                     </div>
                 </div>
@@ -674,7 +675,7 @@
             <div>
                 <h3 class="footer-title">服务时间</h3>
                 <p class="footer-text">周一至周五：8:30 - 17:30</p>
-                <p class="footer-text">周六：9:00 - 17:00</p>
+                <p class="footer-text">周六：9:00 - 15:00</p>
                 <p class="footer-text">周日：休息</p>
             </div>
             
@@ -687,7 +688,7 @@
         
         <div class="container">
             <div class="copyright">
-                <p>© 2023 鄂州市慧企通企业服务平台</p>
+                <p>© 2023 鄂州市慧企通财税服务平台 | 合作伙伴：汇税帮</p>
             </div>
         </div>
     </footer>
@@ -697,16 +698,17 @@
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // 显示提交中状态
+            // 显示加载状态
             const submitBtn = document.querySelector('.submit-btn');
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = '提交中...';
             submitBtn.disabled = true;
             
+            // 显示状态提示
             const formStatus = document.getElementById('formStatus');
-            formStatus.className = 'form-status';
             formStatus.style.display = 'block';
             formStatus.textContent = '提交中，请稍候...';
+            formStatus.className = 'form-status';
             
             // 收集表单数据
             const formData = {
@@ -730,17 +732,17 @@
                 });
                 
                 if (response.ok) {
-                    formStatus.textContent = '提交成功！我们会尽快联系您';
+                    formStatus.textContent = '提交成功！我们会尽快与您联系';
                     formStatus.className = 'form-status success';
                     document.getElementById('contactForm').reset();
                 } else {
-                    formStatus.textContent = '提交失败，请稍后再试';
+                    formStatus.textContent = `提交失败: HTTP错误 ${response.status}`;
                     formStatus.className = 'form-status error';
                 }
             } catch (error) {
+                console.error('提交错误:', error);
                 formStatus.textContent = `提交失败: ${error.message}`;
                 formStatus.className = 'form-status error';
-                console.error('提交错误:', error);
             } finally {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
